@@ -126,7 +126,7 @@ function createEvent(title, eventClass, start, end, url) {
             $.parseHTML(response);
         }).success(function(data) {
             if(data === 'success') {
-                window.location.reload();
+                window.location.replace("./index-bs3.html");
             }
         }).error(function(error) {
             console.log(error);

@@ -1,0 +1,6 @@
+.form-control.unhappy {
+ border:1px solid #F00;
+}
+.unhappyMessage{
+font-size: 12px;
+}
