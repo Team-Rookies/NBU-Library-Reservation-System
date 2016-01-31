@@ -20,8 +20,8 @@
             createEvent(
                     "<?php echo $title ?>",
                     "event-success",
-                    new Date("<?php echo $dateStart ?>T<?php echo $timeStart ?>:00"),
-                    new Date("<?php echo $dateEnd ?>T<?php echo $timeEnd ?>:00"),
+                    new Date("<?php echo "$dateStart"."T"."$timeStart".":00+0200"?>"),
+                    new Date("<?php echo "$dateStart"."T"."$timeStart".":00+0200"?>"),
                     "test.fake");
         </script>
 

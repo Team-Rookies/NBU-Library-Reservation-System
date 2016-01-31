@@ -107,11 +107,22 @@ var app = app || {};
 
 }(jQuery));
 
-function createEvent(title, eventClass, start, end, url) {
+function createEvent(title, description, multimedia, additionalInfo, username, phone, email, eventType, start, end) {
     var resultingJSON;
     $.getJSON('events.json', function(json) {
 
-        var event = new CalendarEvent(title, eventClass, start.getTime(), end.getTime(), url);
+        var event = new CalendarEvent(
+            title,
+            description,
+            multimedia,
+            additionalInfo,
+            username,
+            phone,
+            email,
+            eventType,
+            start.getTime(),
+            end.getTime()
+        );
 
         json.result.push(event);
 
