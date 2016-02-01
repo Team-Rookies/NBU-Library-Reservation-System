@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="css/calendar.css">
         <link rel="stylesheet" href="css/datepicker.css">
         <link rel="stylesheet" href="css/jquery.timepicker.css">
+        <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
         <link rel="stylesheet" href="css/style.css" type="text/css"/>
 
         <style type="text/css">
@@ -50,65 +51,82 @@
                                     <form id="addForm" action="add.php" method="post">
                                         <div class="col-xs-6 form-group">
                                             <label>Event Title</label>
-                                            <input class="form-control" type="text" name="title" id="title"/>
+                                            <input class="validate[required, custom[onlyLetterSp]] form-control" type="text" name="title" id="title"/>
                                         </div>
                                         <div class="col-xs-6 form-group">
                                             <label>Department</label>
-                                            <input class="form-control" type="text"/>
+                                            <input class="validate[required, custom[onlyLetterSp]] form-control" type="text" name="dep" id="dep"/>
                                         </div>
                                         <div id="datepair">
                                             <div class="col-xs-6 form-group">
                                                 <label>Date start</label>
-                                                <input type="text" class="date start form-control" name="dateStart" id="dateStart"/>
+                                                <input type="text" class="validate[required] text-input date start form-control" name="dateStart" id="dateStart" />
                                             </div>
                                             <div class="col-xs-6 form-group">
                                                 <label>Date end</label>
-                                                <input type="text" class="date end form-control" name="dateEnd" id="dateEnd"/>
+                                                <input type="text" class="validate[required] text-input date end form-control" name="dateEnd" id="dateEnd"/>
                                             </div>
                                             <div class="col-xs-6 form-group">
                                                 <label>Time start</label>
-                                                <input type="text" class="time start form-control" name="timeStart" id="timeStart"/>
+                                                <input type="text" class="validate[required] time start form-control" name="timeStart" id="timeStart" />
                                             </div>
                                             <div class="col-xs-6 form-group">
                                                 <label>Time end</label>
-                                                <input type="text" class="time end form-control" name="timeEnd" id="timeEnd"/>
+                                                <input type="text" class="validate[required] time end form-control" name="timeEnd" id="timeEnd"/>
                                             </div>
-
                                         </div>
 
                                         <div class="col-xs-6 form-group">
                                             <label>Contact person</label>
-                                            <input class="form-control" type="text"/>
+                                            <input class="validate[required, custom[onlyLetterSp]] form-control" type="text" name="username" id="username"/>
                                         </div>
                                         <div class="col-xs-6 form-group">
                                             <label>Telephone</label>
-                                            <input class="form-control" type="text"/>
+                                            <input class="validate[required, custom[onlyNumberSp]] form-control" type="text" name="phone" id="phone"/>
                                         </div> 
                                         <div class="col-xs-6 form-group">
                                             <label>Email</label>
-                                            <input class="form-control" type="text"/>
-                                            <label for="repSelect">Repeat:</label>
-                                            <select class="form-control" id="repSelect">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                            </select>
+                                            <input class="validate[required, custom[email]] form-control" type="text" name="mail" id="mail"/>
+                                        </div> 
+                                        <div class="col-xs-6 form-group">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <label for="repSelect">Repeat:</label>
+                                                    <select class="form-control" name="selectMethod" id="selectMethod">
+                                                        <option value="">None</option>
+                                                        <option value="week">Weekly</option>
+                                                        <option value="month">Monthly</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <label for="repSelect">for:</label>
+                                                    <select class="validate[required] form-control" name="selectDuration" id="selectDuration" disabled>
+                                                        <option selected="selected">None</option>
+                                                        <script>
+                                                            for (var i = 1; i <= 12; i++)
+                                                            {
+                                                                document.write('<option rel="week" value="' + i + '">' + i + ' weeks</option>');
+                                                                document.write('<option rel="month" value="' + i + '">' + i + ' months</option>');
+                                                            }
+                                                        </script>
+                                                    </select>
+                                                </div>
+                                            </div> 
                                         </div>   
-
-                                        <div class="col-xs-6 form-group">
-                                            <label for="comment">Comment:</label>
-                                            <textarea class="form-control" rows="5" id="comment"></textarea>
+                                        <div class="container">
+                                            <label for="comment">Additional information:</label>
+                                            <textarea class="form-control" rows="5" name="additionalInfo" id="additionalInfo"></textarea>
                                         </div>
-                                        <div class="col-xs-6 form-group">
+                                        <div class="col-xs-6 form-group pull-right">
                                             <label>
-                                                <input type="checkbox"> I will use multimedia.
+                                                <input type="checkbox" name="multimedia"> I will use multimedia.
                                             </label>
                                         </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
                                 <input type="submit" class="btn btn-info" value="Submit event">
+                                <input type="reset" class="btn btn-default" value="Clear">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                             </form>
@@ -207,40 +225,60 @@
             <script type="text/javascript" src="js/jquery.timepicker.min.js"></script>
             <script src="js/datepair.js"></script>
             <script src="js/jquery.datepair.js"></script>
-            <script src="js/happy.js"></script>
+            <script src="js/jquery.validationEngine.js"></script>
+            <script src="js/jquery.validationEngine-en.js"></script>
             <script type="text/javascript">
-                var disqus_shortname = 'bootstrapcalendar'; // required: replace example with your forum shortname
-                (function () {
-                    var dsq = document.createElement('script');
-                    dsq.type = 'text/javascript';
-                    dsq.async = true;
-                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
+                                                            var disqus_shortname = 'bootstrapcalendar'; // required: replace example with your forum shortname
+                                                            (function () {
+                                                                var dsq = document.createElement('script');
+                                                                dsq.type = 'text/javascript';
+                                                                dsq.async = true;
+                                                                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                                                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                                                            })();
             </script>
             <script>
                 $('#datepair .time').timepicker({
                     'showDuration': true,
                     'timeFormat': 'H:i',
                     'minTime': '08:00',
-                    'maxTime': '18:00'
+                    'maxTime': '20:00',
+                    'disableTextInput': true
                 });
 
                 $('#datepair .date').datepicker({
                     'format': 'yyyy-mm-dd',
-                    'autoclose': true
+                    'autoclose': true,
+                    'startDate': '+0d'
                 });
 
                 $('#datepair').datepair();
 
-                $('#addForm').isHappy({
-                    fields: {
-                        // reference the field you're talking about, probably by `id`
-                        // but you could certainly do $('[name=name]') as well.
-                        '#title': {
-                            required: true
-                        }
-                    }
+//Reset button form               
+                document.getElementById("addForm").reset();
+
+// Form validation
+                $(document).ready(function () {
+                    $("#addForm").validationEngine();
+                });
+
+
+// Repeat fields dependency
+                $(function () {
+
+                    var $cat = $("#selectMethod"),
+                            $subcat = $("#selectDuration");
+
+                    $cat.on("change", function () {
+                        var _rel = $(this).val();
+                        $subcat.find("option").attr("style", "");
+                        $subcat.val("");
+                        if (!_rel)
+                            return $subcat.prop("disabled", true);
+                        $subcat.find("[rel=" + _rel + "]").show();
+                        $subcat.prop("disabled", false);
+                    });
+
                 });
             </script>
 

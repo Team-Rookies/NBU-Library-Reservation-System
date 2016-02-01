@@ -11,6 +11,11 @@
         }
 
         $title = filter_input(INPUT_POST, 'title');
+        $dep = filter_input(INPUT_POST, 'dep');
+        $additionalInfo = filter_input(INPUT_POST, 'additionalInfo');
+        $username = filter_input(INPUT_POST, 'username');
+        $phone = filter_input(INPUT_POST, 'phone');
+        $mail = filter_input(INPUT_POST, 'mail');
         $dateStart = filter_input(INPUT_POST, 'dateStart');
         $dateEnd = filter_input(INPUT_POST, 'dateEnd');
         $timeStart = filter_input(INPUT_POST, 'timeStart');
@@ -19,10 +24,19 @@
         <script type="text/javascript">
             createEvent(
                     "<?php echo $title ?>",
+                    "<?php echo $dep ?>",
+                    <?php if (isset($_POST['multimedia'])) 
+                    { echo "true"; } 
+                    else 
+                    { echo "false"; } ?>,
+                    "<?php echo $additionalInfo ?>",
+                    "<?php echo $username ?>",
+                    "<?php echo $phone ?>",
+                    "<?php echo $mail ?>",
                     "event-success",
-                    new Date("<?php echo "$dateStart"."T"."$timeStart".":00+0200"?>"),
-                    new Date("<?php echo "$dateStart"."T"."$timeStart".":00+0200"?>"),
-                    "test.fake");
+                    new Date("<?php echo "$dateStart" . "T" . "$timeStart" . ":00+0200" ?>"),
+                    new Date("<?php echo "$dateEnd" . "T" . "$timeEnd" . ":00+0200" ?>")
+                    );
         </script>
 
     </body>

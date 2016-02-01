@@ -4,3 +4,9 @@
 .unhappyMessage{
 font-size: 12px;
 }
+#selectDuration option{
+    display:none;
+}
+#selectDuration option.label{
+    display:block;
+}
