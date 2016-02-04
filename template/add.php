@@ -20,8 +20,14 @@
         $dateEnd = filter_input(INPUT_POST, 'dateEnd');
         $timeStart = filter_input(INPUT_POST, 'timeStart');
         $timeEnd = filter_input(INPUT_POST, 'timeEnd');
+        $repeatMethod =  filter_input(INPUT_POST, 'selectMethod');
+        if (isset($_POST['selectDuration'])){
+        $repeatDuration= filter_input(INPUT_POST, 'selectDuration');
+        } else {
+        $repeatDuration = 0; }
         ?>
-        <script type="text/javascript">
+       
+         <script type="text/javascript">
             createEvent(
                     "<?php echo $title ?>",
                     "<?php echo $dep ?>",
@@ -35,9 +41,11 @@
                     "<?php echo $mail ?>",
                     "event-success",
                     new Date("<?php echo "$dateStart" . "T" . "$timeStart" . ":00+0200" ?>"),
-                    new Date("<?php echo "$dateEnd" . "T" . "$timeEnd" . ":00+0200" ?>")
+                    new Date("<?php echo "$dateEnd" . "T" . "$timeEnd" . ":00+0200" ?>"),
+                    "<?php echo $repeatMethod ?>",
+                    <?php echo $repeatDuration ?>
                     );
-        </script>
+             </script>   
 
     </body>
 </html>

@@ -109,10 +109,10 @@ var app = app || {};
 
 }(jQuery));
 
-function createEvent(title, description, multimedia, additionalInfo, username, phone, email, eventType, start, end) {
-    var resultingJSON;
-    $.getJSON('events.json', function (json) {
+function createEvent(title, description, multimedia, additionalInfo, username, phone, email, eventType, start, end, repeatMethod, repeatDuration) {
+    var resultingJSON = [];
 
+    $.getJSON('events.json', function (json) {
         var event = new CalendarEvent(
                 title,
                 description,
@@ -127,19 +127,66 @@ function createEvent(title, description, multimedia, additionalInfo, username, p
                 );
 
         json.result.push(event);
+        resultingJSON = (json);
+        if ((repeatMethod === "week") && (repeatDuration !== 0))
+        {
+            for (i = 0; i < repeatDuration; i++)
+            {
+                start.setDate(start.getDate() + 7);
+                end.setDate(end.getDate() + 7);
 
-        resultingJSON = json;
+                var event = new CalendarEvent(
+                        title,
+                        description,
+                        multimedia,
+                        additionalInfo,
+                        username,
+                        phone,
+                        email,
+                        eventType,
+                        start.getTime(),
+                        end.getTime()
+                        );
+
+                json.result.push(event);
+                resultingJSON = (json);
+            }
+        }
+        if ((repeatMethod === "month") && (repeatDuration !== 0))
+        {
+            for (i = 0; i < repeatDuration; i++)
+            {
+                start.setMonth(start.getMonth() + 1);
+                end.setMonth(end.getMonth() + 1);
+
+                var event = new CalendarEvent(
+                        title,
+                        description,
+                        multimedia,
+                        additionalInfo,
+                        username,
+                        phone,
+                        email,
+                        eventType,
+                        start.getTime(),
+                        end.getTime()
+                        );
+
+                json.result.push(event);
+                resultingJSON = (json);
+            }
+        }
+
     }).then(function () {
         var saveData = {
             method: 'saveEvent',
             json: JSON.stringify(resultingJSON)
         };
-
         $.post('api/events.php', saveData, function (response) {
             $.parseHTML(response);
         }).success(function (data) {
             if (data === 'success') {
-                window.location.replace("/index-bs3.html");
+                console.log(data);
             }
         }).error(function (error) {
             console.log(error);

@@ -15,6 +15,7 @@
     function saveEvent($file, $eventJSON) {
         file_put_contents($file, $eventJSON);
         echo 'success';
+        
     }
 
     function getEvents ($file) {
