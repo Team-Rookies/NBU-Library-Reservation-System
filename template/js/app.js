@@ -186,7 +186,8 @@ function createEvent(title, description, multimedia, additionalInfo, username, p
             $.parseHTML(response);
         }).success(function (data) {
             if (data === 'success') {
-                console.log(data);
+                window.location.replace("./index-bs3.html");
+                //console.log(data);
             }
         }).error(function (error) {
             console.log(error);
