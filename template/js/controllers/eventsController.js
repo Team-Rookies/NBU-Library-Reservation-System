@@ -5,92 +5,14 @@ app.eventsController = (function() {
     }
 
     EventsController.prototype.addEvent = function(title, department, multimedia, additionalInfo, username, phone, email, start, end, repeatMethod, repeatDuration) {
-        var resultingJSON = [], i, event, checkDateRange, dateOk = true;
-        var newStart = new Date(start.getTime());
-        var newEnd = new Date(end.getTime());
+        var resultingJSON = [], dateOk = true;
         repeatDuration = Number(repeatDuration);
-
-        if ((repeatMethod === "week") && (repeatDuration !== 0)) {
-            for (i = 0; i < repeatDuration; i++) {
-                newStart.setDate(start.getDate() + 7 * i);
-                newEnd.setDate(end.getDate() + 7 * i);
-                checkDateRange = new DateRange(newStart, newEnd);
-                if(app.dates.contains(checkDateRange)) {
-                    dateOk = false;
-                    break;
-                }
-            }
-        } else if((repeatMethod === "month") && (repeatDuration !== 0)) {
-            for (i = 0; i < repeatDuration; i++) {
-                newStart.setMonth(start.getMonth() + i);
-                newEnd.setMonth(end.getMonth() + 1);
-                checkDateRange = new DateRange(newStart, newEnd);
-
-                if(!app.dates.contains(checkDateRange)) {
-                    dateOk = false;
-                    break;
-                }
-            }
-        }
+        dateOk = checkValidDate(start, end, repeatMethod, repeatDuration);
 
         if(dateOk) {
             $.getJSON('events.json', function (json) {
-                if ((repeatMethod === "week") && (repeatDuration !== 0)) {
-                    for (i = 0; i < repeatDuration; i++) {
-                        newStart = new Date(start.getTime());
-                        newEnd = new Date(end.getTime());
-                        newStart.setDate(start.getDate() + 7 * i);
-                        newEnd.setDate(end.getDate() + 7 * i);
-
-                        event = new CalendarEvent(
-                            title,
-                            department,
-                            multimedia,
-                            additionalInfo,
-                            username,
-                            phone,
-                            email,
-                            newStart.getTime(),
-                            newEnd.getTime()
-                        );
-
-                        json.result.push(event);
-                    }
-                } else if ((repeatMethod === "month") && (repeatDuration !== 0)) {
-                    for (i = 0; i < repeatDuration; i++) {
-                        newStart = new Date(start.getTime());
-                        newEnd = new Date(end.getTime());
-                        newStart.setMonth(start.getMonth() + i);
-                        newEnd.setMonth(end.getMonth() + i);
-
-                        event = new CalendarEvent(
-                            title,
-                            department,
-                            multimedia,
-                            additionalInfo,
-                            username,
-                            phone,
-                            email,
-                            newStart.getTime(),
-                            newEnd.getTime()
-                        );
-
-                        json.result.push(event);
-                    }
-                } else {
-                    event = new CalendarEvent(
-                        title,
-                        department,
-                        multimedia,
-                        additionalInfo,
-                        username,
-                        phone,
-                        email,
-                        start.getTime(),
-                        end.getTime()
-                    );
-                    json.result.push(event);
-                }
+                addEvents(title, department, multimedia, additionalInfo, username, phone, email, start, end,
+                repeatMethod, repeatDuration, json);
 
                 resultingJSON = json;
             }).then(function () {
@@ -115,6 +37,72 @@ app.eventsController = (function() {
             console.error('Event already exists');
         }
     };
+
+    function checkValidDate(start, end, method, duration) {
+        var newStart = new Date(start.getTime());
+        var newEnd = new Date(end.getTime());
+
+        for (var i = 0; i < duration; i++) {
+            if(method === 'week') {
+                newStart.setDate(start.getDate() + 7 * i);
+                newEnd.setDate(end.getDate() + 7 * i);
+            } else {
+                newStart.setMonth(start.getMonth() + i);
+                newEnd.setMonth(end.getMonth() + i);
+            }
+            var checkDateRange = new DateRange(newStart, newEnd);
+            if(app.dates.contains(checkDateRange)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function addEvents(title, department, multimedia, additionalInfo, username, phone, email, start, end, method, duration, json) {
+        var event;
+
+        if(duration !== 0) {
+            var newStart = new Date(start.getTime());
+            var newEnd = new Date(end.getTime());
+            for (var i = 0; i < duration; i++) {
+                if (method === "week") {
+                    newStart.setDate(start.getDate() + 7 * i);
+                    newEnd.setDate(end.getDate() + 7 * i);
+                } else if (method === 'month') {
+                    newStart.setMonth(start.getMonth() + i);
+                    newEnd.setMonth(end.getMonth() + i);
+                }
+
+                event = new CalendarEvent(
+                    title,
+                    department,
+                    multimedia,
+                    additionalInfo,
+                    username,
+                    phone,
+                    email,
+                    newStart.getTime(),
+                    newEnd.getTime()
+                );
+
+                json.result.push(event);
+            }
+        } else {
+            event = new CalendarEvent(
+                title,
+                department,
+                multimedia,
+                additionalInfo,
+                username,
+                phone,
+                email,
+                start.getTime(),
+                end.getTime()
+            );
+
+            json.result.push(event);
+        }
+    }
 
     return new EventsController();
 }());
