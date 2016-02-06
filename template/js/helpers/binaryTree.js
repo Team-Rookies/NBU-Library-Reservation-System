@@ -99,11 +99,11 @@ BinarySearchTree.prototype = {
         while (!found && current) {
 
             //if the value is less than the current node's, go left
-            if (value.endTime < current.value.startTime) {
+            if (value.endTime <= current.value.startTime) {
                 current = current.left;
 
                 //if the value is greater than the current node's, go right
-            } else if (value.startTime > current.value.endTime) {
+            } else if (value.startTime >= current.value.endTime) {
                 current = current.right;
 
                 //values are equal, found it!

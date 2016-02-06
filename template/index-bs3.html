@@ -17,6 +17,20 @@
         <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
         <link rel="stylesheet" href="css/style.css" type="text/css"/>
 
+        <script type="text/javascript" src="components/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="components/underscore/underscore-min.js"></script>
+        <script type="text/javascript" src="components/bootstrap3/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="components/jstimezonedetect/jstz.min.js"></script>
+        <script type="text/javascript" src="js/language/bg-BG.js"></script>
+        <script type="text/javascript" src="js/helpers/datepair.js"></script>
+        <script type="text/javascript" src="js/helpers/jquery.datepair.js"></script>
+        <script type="text/javascript" src="js/helpers/jquery.validationEngine.js"></script>
+        <script type="text/javascript" src="js/helpers/jquery.validationEngine-en.js"></script>
+        <script type="text/javascript" src="js/helpers/bootstrap-datepicker.js"></script>
+        <script type="text/javascript" src="js/helpers/jquery.timepicker.min.js"></script>
+        <script type="text/javascript" src="js/helpers/calendar.js"></script>
+        <script type="text/javascript" src="js/helpers/binaryTree.js"></script>
+
         <style type="text/css">
             .btn-twitter {
                 padding-left: 30px;
@@ -42,13 +56,13 @@
 
                         <!-- Modal content-->
                         <div class="modal-content">
+                            <form id="addForm" method="post">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Add event</h4>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <form id="addForm" action="add.php" method="post">
                                         <div class="col-xs-6 form-group">
                                             <label>Event Title</label>
                                             <input class="validate[required, custom[onlyLetterSp]] form-control" type="text" name="title" id="title"/>
@@ -91,7 +105,7 @@
                                         <div class="col-xs-6 form-group">
                                             <div class="row">
                                                 <div class="col-xs-6">
-                                                    <label for="repSelect">Repeat:</label>
+                                                    <label for="selectMethod">Repeat:</label>
                                                     <select class="form-control" name="selectMethod" id="selectMethod">
                                                         <option value="">None</option>
                                                         <option value="week">Weekly</option>
@@ -99,7 +113,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-6">
-                                                    <label for="repSelect">for:</label>
+                                                    <label for="selectDuration">for:</label>
                                                     <select class="validate[required] form-control" name="selectDuration" id="selectDuration" disabled>
                                                         <option value="0" selected="selected">None</option>
                                                         <script>
@@ -114,18 +128,18 @@
                                             </div> 
                                         </div>   
                                         <div class="container">
-                                            <label for="comment">Additional information:</label>
+                                            <label for="additionalInfo">Additional information:</label>
                                             <textarea class="form-control" rows="5" name="additionalInfo" id="additionalInfo"></textarea>
                                         </div>
                                         <div class="col-xs-6 form-group pull-right">
                                             <label>
-                                                <input type="checkbox" name="multimedia"> I will use multimedia.
+                                                <input type="checkbox" name="multimedia" id="multimedia"> I will use multimedia.
                                             </label>
                                         </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <input type="submit" class="btn btn-info" value="Submit event">
+                                <input type="button" class="btn btn-info" value="Submit event" id="addBtn">
                                 <input type="reset" class="btn btn-default" value="Clear">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
@@ -213,20 +227,13 @@
                 </div>
             </div>
 
-            <script type="text/javascript" src="components/jquery/jquery.min.js"></script>
-            <script type="text/javascript" src="components/underscore/underscore-min.js"></script>
-            <script type="text/javascript" src="components/bootstrap3/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="components/jstimezonedetect/jstz.min.js"></script>
-            <script type="text/javascript" src="js/language/bg-BG.js"></script>
-            <script type="text/javascript" src="js/calendar.js"></script>
+
+            <script type="text/javascript" src="js/helpers/addEventHandlers.js"></script>
             <script type="text/javascript" src="js/models/event.js"></script>
+            <script type="text/javascript" src="js/models/dateRange.js"></script>
+            <script type="text/javascript" src="js/calendarApp.js"></script>
+            <script type="text/javascript" src="js/controllers/eventsController.js"></script>
             <script type="text/javascript" src="js/app.js"></script>
-            <script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-            <script type="text/javascript" src="js/jquery.timepicker.min.js"></script>
-            <script src="js/datepair.js"></script>
-            <script src="js/jquery.datepair.js"></script>
-            <script src="js/jquery.validationEngine.js"></script>
-            <script src="js/jquery.validationEngine-en.js"></script>
             <script type="text/javascript">
                                                             var disqus_shortname = 'bootstrapcalendar'; // required: replace example with your forum shortname
                                                             (function () {
