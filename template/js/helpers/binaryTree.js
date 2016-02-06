@@ -117,6 +117,33 @@ BinarySearchTree.prototype = {
 
     },
 
+    containsDate: function(value) {
+        var found = false,
+            current = this._root;
+
+
+        //make sure there's a node to search
+        while (!found && current) {
+            current = new Date(current.value.startTime.getFullYear() + '/' + current.value.startTime.getMonthFormatted() + '/' + current.value.startTime.getDateFormatted());
+            var check = new Date(value.getFullYear() + '/' + value.getMonthFormatted() + '/' + value.getDateFormatted());
+            //if the value is less than the current node's, go left
+            if (check < current) {
+                current = current.left;
+
+                //if the value is greater than the current node's, go right
+            } else if (check > current) {
+                current = current.right;
+
+                //values are equal, found it!
+            } else {
+                found = true;
+            }
+        }
+
+        //only proceed if the node was found
+        return found;
+    },
+
     /**
      * Removes the node with the given value from the tree. This may require
      * moving around some nodes so that the binary search tree remains

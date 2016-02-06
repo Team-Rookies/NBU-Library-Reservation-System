@@ -60,4 +60,60 @@ function attachEvents() {
         });
         return false;
     });
+
+    $('#timeStart').focus(function() {
+        var date = new Date($('#dateStart').val());
+        if(app.dates.containsDate(date)) {
+            var arr = [];
+            app.dates.toArray().forEach(function(e) {
+                var dt = [];
+                dt.push(formatAMPM(e.startTime));
+                dt.push(formatAMPM(e.endTime));
+                arr.push(dt);
+            });
+
+            $('#timeStart').timepicker({
+                'showDuration': true,
+                'timeFormat': 'H:i',
+                'minTime': '08:00',
+                'maxTime': '20:00',
+                'disableTextInput': true,
+                'disableTimeRanges': arr
+            })
+        }
+    });
+
+    $('#timeEnd').focus(function() {
+        var date = new Date($('#dateStart').val());
+        if(app.dates.containsDate(date)) {
+            var arr = [];
+            app.dates.toArray().forEach(function(e) {
+                var dt = [];
+                dt.push(formatAMPM(e.startTime));
+                dt.push(formatAMPM(e.endTime));
+                arr.push(dt);
+            });
+
+            $('#timeEnd').timepicker({
+                'showDuration': true,
+                'timeFormat': 'H:i',
+                'minTime': '08:00',
+                'maxTime': '20:00',
+                'disableTextInput': true,
+                'disableTimeRanges': arr
+            })
+        }
+    });
+
+
+    function formatAMPM(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + '' + ampm;
+        return strTime;
+    }
 }

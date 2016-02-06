@@ -27,4 +27,3 @@ var app = app || {};
 function milToDate(m) {
     return new Date(Number(m));
 }
-
