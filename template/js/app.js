@@ -21,6 +21,7 @@ var app = app || {};
             //console.log(status);
         })
     }
+    attachEvents();
 }());
 
 function milToDate(m) {
