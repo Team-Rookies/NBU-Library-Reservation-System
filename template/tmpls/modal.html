@@ -2,17 +2,17 @@
 event.date_end = new Date(parseInt(event.end)); %>
 <div id = "event-meta" class="container">
     <h1><%= event.title %></h1>
-    <h2><span class="glyphicon glyphicon-briefcase"></span> <%= event.description %> </h2>
+    <h2><span class="glyphicon glyphicon-briefcase"></span> <%= event.department %> </h2>
     <h3><span class="glyphicon glyphicon-user"></span> <%= event.username %> </h3>
     <h3><span class="glyphicon glyphicon-phone-alt"></span> <%= event.phone %></h3>
-    <h3><span class="glyphicon glyphicon-envelope"></span> <%= event.mail %> </h3>
-    <span><b>START AT</b>  <%= event.date_start.getDate() %> <%= calendar.locale["m" + event.date_start.getMonth()] %> <%= event.date_start.getFullYear() %>, at <%= event.date_start.getHours() %>:<%= event.date_start.getMinutes() %>0 <i class = "icon-time"></i></span>
-    <b>END AT</b>  <%= event.date_end.getDate() %> <%= calendar.locale["m" + event.date_end.getMonth()] %> <%= event.date_end.getFullYear() %> at <%= event.date_end.getHours() %>:<%= event.date_end.getMinutes() %>0 <i class = "icon-time"></i></span><br />
+    <h3><span class="glyphicon glyphicon-envelope"></span> <%= event.email %> </h3>
+    <span><b>STARTS ON</b> <%= event.date_start.getDate() %> <%= calendar.locale["m" + event.date_start.getMonth()] %> <%= event.date_start.getFullYear() %>, at <%= event.date_start.getHours() %>:<%= event.date_start.getMinutes() == 0 ? '00' : event.date_start.getMinutes() %> <i class = "icon-time"></i></span><br />
+    <span><b>ENDS ON</b>  <%= event.date_end.getDate() %> <%= calendar.locale["m" + event.date_end.getMonth()] %> <%= event.date_end.getFullYear() %>, at <%= event.date_end.getHours() %>:<%= event.date_end.getMinutes() == 0 ? '00' : event.date_end.getMinutes() %> <i class = "icon-time"></i></span><br />
     <span><span class="glyphicon glyphicon-info-sign"></span> <%= event.additionalInfo %> </span>
-    <p> Multimedia: <%= event.multimedia %> </p>
+    <p> Multimedia: <%= event.multimedia ? 'Needed' : 'Not needed'%> </p>
 
 </div>
 
 <div style = "margin: 10px 0">
-    <a href = "<%= event.url %>" class = "btn btn-primary"><i class = "icon-calendar"></i> More info</a>
+    <a href="#" edata="<%= event.deleteUrl %>" class = "btn btn-primary" id="deleteBtn"><i class = "icon-calendar"></i>Delete</a>
 </div>

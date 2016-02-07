@@ -27,10 +27,7 @@ app.eventsController = (function() {
                 $.post('api/events.php', saveData, function (response) {
                     $.parseHTML(response);
                 }).success(function (data) {
-                    if (data === 'success') {
-                        window.location.replace("./index.html");
-                        //console.log(data);
-                    }
+                    window.location.replace("./index.html");
                 }).error(function (error) {
                     console.log(error);
                 }).complete(function (status) {
