@@ -57,12 +57,12 @@
                         <!-- Modal content-->
                         <div class="modal-content">
                             <form id="addForm" method="post">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Add event</h4>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Add event</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
                                         <div class="col-xs-6 form-group">
                                             <label>Event Title</label>
                                             <input class="validate[required, custom[onlyLetterSp]] form-control" type="text" name="title" id="title"/>
@@ -136,13 +136,13 @@
                                                 <input type="checkbox" name="multimedia" id="multimedia"> I will use multimedia.
                                             </label>
                                         </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-info" value="Submit event" id="addBtn">
-                                <input type="reset" class="btn btn-default" value="Clear" id="clearBtn">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
+                                <div class="modal-footer">
+                                    <input type="button" class="btn btn-info" value="Submit event" id="addBtn"/>
+                                    <input type="reset" class="btn btn-default" value="Clear" id="clearBtn"/>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
                             </form>
                         </div>
 
@@ -263,16 +263,10 @@
                 });
 
 //Reset button form               
-                 $('#clearBtn').click(function(){
-                document.getElementById("addForm").reset();
-                document.getElementById("selectDuration").disabled = true; 
+                $('#clearBtn').click(function () {
+                    document.getElementById("addForm").reset();
+                    document.getElementById("selectDuration").disabled = true;
                 });
-
-// Form validation
-                $(document).ready(function () {
-                    $("#addForm").validationEngine();
-                });
-
 
 // Repeat fields dependency
                 $(function () {
