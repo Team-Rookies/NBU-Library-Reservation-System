@@ -5,26 +5,30 @@ app.eventsController = (function() {
     }
 
     EventsController.prototype.addEvent = function(title, department, multimedia, additionalInfo, username, phone, email, start, end, repeatMethod, repeatDuration) {
-        var resultingJSON = [], dateOk = true;
+        var resultingJSON = [], dateOk,
         repeatDuration = Number(repeatDuration);
         dateOk = checkValidDate(start, end, repeatMethod, repeatDuration);
+        var deleteUrl;
 
         if(dateOk) {
             $.getJSON('events.json', function (json) {
-                addEvents(title, department, multimedia, additionalInfo, username, phone, email, start, end,
+                deleteUrl = addEvents(title, department, multimedia, additionalInfo, username, phone, email, start, end,
                 repeatMethod, repeatDuration, json);
 
                 resultingJSON = json;
             }).then(function () {
                 var saveData = {
                     method: 'saveEvent',
-                    json: JSON.stringify(resultingJSON)
+                    json: JSON.stringify(resultingJSON),
+                    email: email,
+                    deleteUrl: deleteUrl,
+                    username: username
                 };
                 $.post('api/events.php', saveData, function (response) {
                     $.parseHTML(response);
                 }).success(function (data) {
                     if (data === 'success') {
-                        window.location.replace("./index-bs3.html");
+                        window.location.replace("./index.html");
                         //console.log(data);
                     }
                 }).error(function (error) {
@@ -60,6 +64,8 @@ app.eventsController = (function() {
 
     function addEvents(title, department, multimedia, additionalInfo, username, phone, email, start, end, method, duration, json) {
         var event;
+        var id = (new Date()).getTime() + app.id;
+        var deleteURL = document.URL.substr(0,document.URL.lastIndexOf('/')) + '/api/events.php?id=' + id;
 
         if(duration !== 0) {
             var newStart = new Date(start.getTime());
@@ -82,7 +88,8 @@ app.eventsController = (function() {
                     phone,
                     email,
                     newStart.getTime(),
-                    newEnd.getTime()
+                    newEnd.getTime(),
+                    id
                 );
 
                 json.result.push(event);
@@ -97,11 +104,14 @@ app.eventsController = (function() {
                 phone,
                 email,
                 start.getTime(),
-                end.getTime()
+                end.getTime(),
+                id
             );
 
             json.result.push(event);
         }
+
+        return deleteURL;
     }
 
     return new EventsController();

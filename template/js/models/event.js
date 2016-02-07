@@ -1,5 +1,5 @@
 var CalendarEvent = (function () {
-    function CalendarEvent(title, department, multimedia, additionalInfo, username, phone, email, start, end) {
+    function CalendarEvent(title, department, multimedia, additionalInfo, username, phone, email, start, end, deleteUrl) {
         this.id = (++app.id).toString();
         this.title = title;
         this.department = department;
@@ -11,13 +11,8 @@ var CalendarEvent = (function () {
         this.class = "event-success";
         this.start = start.toString();
         this.end = end.toString();
-        this.deleteUrl = this.createDeleteUrl();
+        this.deleteUrl = deleteUrl;
     }
-
-    CalendarEvent.prototype.createDeleteUrl = function () {
-        var root = location.protocol + '/' + location.host + location.pathname + '/';
-        return root + (new Date()).getTime() + this.id;
-    };
 
     return CalendarEvent;
 }());
