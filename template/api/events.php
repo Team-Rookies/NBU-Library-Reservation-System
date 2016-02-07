@@ -40,11 +40,11 @@ Team Rookies";
             'Content-Type:text/html; charset=UTF-8' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
         if(mail($to, $subject, $message, $headers)) {
+            file_put_contents($file, $eventJSON);
             echo 'success';
         } else {
             echo "error sending mail";
         }
-        file_put_contents($file, $eventJSON);
     }
 
     function deleteEvent($file, $url) {

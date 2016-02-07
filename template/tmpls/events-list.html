@@ -2,21 +2,27 @@
 <div id="cal-slide-content" class="cal-event-list">
 	<ul class="unstyled list-unstyled">
 		<% _.each(events, function(event) { %>
+        <% var start = new Date(Number(event.start)) %>
+        <% var end = new Date(Number(event.end)) %>
+        <% var startMonth = start.toLocaleString('en-us', {month:'short'}) %>
+        <% var endMonth = end.toLocaleString('en-us', {month:'short'}) %>
 			<li>
 				<span class="pull-left event <%= event['class'] %>"></span>&nbsp;
-					<%= event.title %>
-                    &nbsp;
-                    <%= event.description%>
-                    &nbsp;
-                    <%= event.multimedia%>
+                <%= event.title %>
                 &nbsp;
-                <%= event.additionalInfo%>
+                <%= event.department%>
+                &nbsp;
+                <%= event.multimedia ? '[Needs multimedia]' : ''%>
                 &nbsp;
                 <%= event.username%>
                 &nbsp;
                 <%= event.phone%>
                 &nbsp;
                 <%= event.email%>
+                &nbsp;
+                Starts on <%= start.getDate() %>-<%= startMonth %>-<%= start.getFullYear() %>, at <%= start.getHours() %>:<%= start.getMinutes() == 0 ? '00' : start.getMinutes() %>
+                &nbsp;
+                Ends on <%= end.getDate() %>-<%= endMonth %>-<%= end.getFullYear() %> at <%= end.getHours() %>:<%= end.getMinutes() == 0 ? '00' : end.getMinutes() %>
 			</li>
 		<% }) %>
 	</ul>

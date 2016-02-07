@@ -4,15 +4,15 @@ event.date_end = new Date(parseInt(event.end)); %>
     <h1><%= event.title %></h1>
     <h2>Department: <%= event.department %> </h2>
     <h3><%= event.username %> - Phone: <%= event.phone %> Email: <%= event.email %> </h3>
+    <h4>More info: <%= event.additionalInfo %> </h4>
 
-    <span>Starts on <%= event.date_start.getDate() %> <%= calendar.locale["m" + event.date_start.getMonth()] %> <%= event.date_start.getFullYear() %>, at <%= event.date_start.getHours() %>:<%= event.date_start.getMinutes() %> <i class = "icon-time"></i></span><br />
-    <span>Ends on <%= event.date_end.getDate() %> <%= calendar.locale["m" + event.date_end.getMonth()] %> <%= event.date_end.getFullYear() %> at <%= event.date_end.getHours() %>:<%= event.date_end.getMinutes() %> <i class = "icon-time"></i></span><br />
-    <span> <%= event.additionalInfo %> </span>
-    <p> Multimedia: <%= event.multimedia %> </p>
-    <a href="#" edata="<%= event.deleteUrl %>" id="deleteBtn">Delete</a>
+    <span>Starts on <%= event.date_start.getDate() %> <%= calendar.locale["m" + event.date_start.getMonth()] %> <%= event.date_start.getFullYear() %>, at <%= event.date_start.getHours() %>:<%= event.date_start.getMinutes() == 0 ? '00' : event.date_start.getMinutes() %> <i class = "icon-time"></i></span><br />
+    <span>Ends on <%= event.date_end.getDate() %> <%= calendar.locale["m" + event.date_end.getMonth()] %> <%= event.date_end.getFullYear() %> at <%= event.date_end.getHours() %>:<%= event.date_end.getMinutes() == 0 ? '00' : event.date_end.getMinutes() %> <i class = "icon-time"></i></span><br />
+    <p> Multimedia: <%= event.multimedia ? 'Needed' : 'Not needed'%> </p>
+    <div style = "margin: 10px 0">
+        <a href="#" edata="<%= event.deleteUrl %>" class = "btn btn-primary" id="deleteBtn"><i class = "icon-calendar"></i>Delete</a>
+    </div>
     <script>attachEvents();</script>
 </div>
 
-<div style = "margin: 10px 0">
-    <a href = "<%= event.url %>" class = "btn btn-primary"><i class = "icon-calendar"></i> More info</a>
-</div>
+

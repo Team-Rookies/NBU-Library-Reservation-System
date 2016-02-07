@@ -7,7 +7,7 @@
         view: 'month',
         tmpl_path: 'tmpls/',
         tmpl_cache: false,
-        day: '2016-01-01',
+        day: new Date().getFullYear() + '-' + new Date().getMonthFormatted() + '-' + new Date().getDateFormatted(),
         onAfterEventsLoad: function(events) {
             if(!events) {
                 return;

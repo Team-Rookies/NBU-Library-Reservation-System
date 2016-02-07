@@ -43,10 +43,9 @@ app.eventsController = (function() {
     };
 
     function checkValidDate(start, end, method, duration) {
-        var newStart = new Date(start.getTime());
-        var newEnd = new Date(end.getTime());
-
         for (var i = 0; i < duration; i++) {
+            var newStart = new Date(start.getTime());
+            var newEnd = new Date(end.getTime());
             if(method === 'week') {
                 newStart.setDate(start.getDate() + 7 * i);
                 newEnd.setDate(end.getDate() + 7 * i);
@@ -68,9 +67,9 @@ app.eventsController = (function() {
         var deleteURL = document.URL.substr(0,document.URL.lastIndexOf('/')) + '/api/events.php?id=' + id;
 
         if(duration !== 0) {
-            var newStart = new Date(start.getTime());
-            var newEnd = new Date(end.getTime());
             for (var i = 0; i < duration; i++) {
+                var newStart = new Date(start.getTime());
+                var newEnd = new Date(end.getTime());
                 if (method === "week") {
                     newStart.setDate(start.getDate() + 7 * i);
                     newEnd.setDate(end.getDate() + 7 * i);

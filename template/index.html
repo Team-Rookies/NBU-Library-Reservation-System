@@ -258,7 +258,9 @@
                     'startDate': '+0d'
                 });
 
-                $('#datepair').datepair();
+                $('#datepair').datepair({
+                    'defaultTimeDelta': 1800000
+                });
 
 //Reset button form               
                 document.getElementById("addForm").reset();

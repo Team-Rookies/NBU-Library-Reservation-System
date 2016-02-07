@@ -66,7 +66,7 @@ BinarySearchTree.prototype = {
                     }
 
                     //if the new value is greater than this node's value, go right
-                } else if (value.startTime > current.value.endTime) {
+                } else if (value.startTime >= current.value.endTime) {
 
                     //if there's no right, then the new node belongs there
                     if (current.right === null) {
@@ -120,18 +120,18 @@ BinarySearchTree.prototype = {
     containsDate: function(value) {
         var found = false,
             current = this._root;
+        value = new Date(value.getFullYear() + '/' + value.getMonthFormatted() + '/' + value.getDateFormatted());
 
 
         //make sure there's a node to search
         while (!found && current) {
-            current = new Date(current.value.startTime.getFullYear() + '/' + current.value.startTime.getMonthFormatted() + '/' + current.value.startTime.getDateFormatted());
-            var check = new Date(value.getFullYear() + '/' + value.getMonthFormatted() + '/' + value.getDateFormatted());
+            var check = new Date(current.value.startTime.getFullYear() + '/' + current.value.startTime.getMonthFormatted() + '/' + current.value.startTime.getDateFormatted());
             //if the value is less than the current node's, go left
-            if (check < current) {
+            if (value < check) {
                 current = current.left;
 
                 //if the value is greater than the current node's, go right
-            } else if (check > current) {
+            } else if (value > check) {
                 current = current.right;
 
                 //values are equal, found it!
