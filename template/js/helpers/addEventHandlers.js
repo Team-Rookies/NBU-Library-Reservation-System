@@ -42,7 +42,9 @@ function attachEvents() {
         }).error(function (error) {
             console.log(error);
         }).complete(function (status) {
-            window.location.replace("./index.html");
+            setTimeout(function() {
+                window.location.replace("./index.html");
+            }, 1000)
         });
         return false;
     });
