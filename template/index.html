@@ -140,7 +140,7 @@
                             </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn btn-info" value="Submit event" id="addBtn">
-                                <input type="reset" class="btn btn-default" value="Clear">
+                                <input type="reset" class="btn btn-default" value="Clear" id="clearBtn">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                             </form>
@@ -263,7 +263,10 @@
                 });
 
 //Reset button form               
+                 $('#clearBtn').click(function(){
                 document.getElementById("addForm").reset();
+                document.getElementById("selectDuration").disabled = true; 
+                });
 
 // Form validation
                 $(document).ready(function () {
