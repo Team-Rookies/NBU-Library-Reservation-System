@@ -25,7 +25,7 @@
         $to = filter_input(INPUT_POST, 'email');
         $deleteUrl = filter_input(INPUT_POST, 'deleteUrl');
         $username = filter_input(INPUT_POST, 'username');
-        $email = 'fake@fake.com';
+        $email = 'info@reservations.uchenici.bg';
 
 
         $subject = "Thank you for creating event";
@@ -39,11 +39,17 @@ Team Rookies";
             'Reply-To: ' . $email . "\r\n" .
             'Content-Type:text/html; charset=UTF-8' . "\r\n" .
             'X-Mailer: PHP/' . phpversion();
+
+        header('Content-Type: application/json');
+
         if(mail($to, $subject, $message, $headers)) {
             file_put_contents($file, $eventJSON);
-            echo 'success';
+
+            $responseArray['status'] = 'success';
+            echo json_encode($responseArray);
         } else {
-            echo "error sending mail";
+            $responseArray['status'] = 'error';
+            echo json_encode($responseArray);
         }
     }
 
