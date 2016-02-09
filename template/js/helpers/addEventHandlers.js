@@ -28,22 +28,19 @@ function attachEvents() {
         var url = $('#deleteBtn').attr("edata");
         var saveData = {
             method: 'deleteEvent',
+            file: sessionStorage['events'],
             url: url
         };
 
         $.post('api/events.php', saveData, function (response) {
-            $.parseHTML(response);
+
         }).success(function (data) {
-            if (data === 'success') {
-                window.location.replace("./index.html");
-            } else {
-                console.log(data);
-            }
+
         }).error(function (error) {
             console.log(error);
         }).complete(function (status) {
             setTimeout(function() {
-                window.location.replace("./index.html");
+                window.location.replace("./events.html");
             }, 1000)
         });
         return false;

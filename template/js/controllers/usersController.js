@@ -9,7 +9,7 @@ app.userController = (function() {
         var newAdmin = new Admin(username, password, repeatPassword);
         //var frozen = newAdmin.freeze();
         var resultingJson;
-        $.getJSON('admins.json', function (json) {
+        $.getJSON('jsonDB/admins.json', function (json) {
             json.admins.forEach(function(a){
                 if(a.username === username) {
                     throw new Error('Username already exists');
@@ -36,7 +36,7 @@ app.userController = (function() {
     };
 
     UserController.prototype.login = function(username, password) {
-        $.getJSON('admins.json', function (json) {
+        $.getJSON('jsonDB/admins.json', function (json) {
             json.admins.forEach(function(a){
                 if(username === a.username) {
                     if(password === sjcl.decrypt('password', a.password)) {
@@ -57,7 +57,7 @@ app.userController = (function() {
                         }).error(function (error) {
                             console.log('Error: ' + error);
                         }).complete(function (status) {
-                            window.location.replace("./index.html");
+                            window.location.replace("./events.html");
                         });
                         return false;
                     } else {
@@ -87,7 +87,7 @@ app.userController = (function() {
         }).error(function (error) {
             console.log('Error: ' + error);
         }).complete(function (status) {
-            window.location.replace("./index.html");
+            window.location.replace("./events.html");
         });
     };
 
@@ -99,7 +99,7 @@ app.userController = (function() {
                 sessionCookie: localStorage['sessionCookie']
             });
 
-            $.getJSON('sessions.json', function(json){
+            $.getJSON('jsonDB/sessions.json', function(json){
                 for (var i in json.sessions) {
                     if(json.sessions[i] === checkString) {
                         defer.resolve(true);

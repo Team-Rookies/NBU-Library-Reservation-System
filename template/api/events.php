@@ -1,12 +1,17 @@
 <?php
-    $file = '../events.json';
+    $file = '';
     $method = '';
 
     if(isset($_POST['method'])) {
         $method = $_POST['method'];
     }
 
+    if(isset($_POST['file'])) {
+        $file = '../' . $_POST['file'];
+    }
+
     if(isset($_GET['id'])) {
+        $file = ('../' . $_GET['event']);
         deleteEvent($file, $_GET['id']);
     }
 
@@ -48,8 +53,10 @@ Team Rookies";
             $responseArray['status'] = 'success';
             echo json_encode($responseArray);
         } else {
-            $responseArray['status'] = 'error';
-            echo json_encode($responseArray);
+            $data = array('type' => 'error', 'message' => 'Error adding event');
+            header('HTTP/1.1 400 Bad Request');
+            header('Content-Type: application/json; charset=UTF-8');
+            echo json_encode($data);
         }
     }
 
@@ -65,7 +72,7 @@ Team Rookies";
 
         $jsonInPHP->result = array_values($jsonInPHP->result);
         file_put_contents($file, json_encode($jsonInPHP));
-        header('Location: '.'../index.html');
+        header('Location: '.'../events.html');
     }
 
 ?>

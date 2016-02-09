@@ -11,7 +11,7 @@ app.eventsController = (function() {
         var deleteUrl;
 
         if(dateOk) {
-            $.getJSON('events.json', function (json) {
+            $.getJSON(sessionStorage['events'], function (json) {
                 deleteUrl = addEvents(title, department, multimedia, additionalInfo, username, phone, email, start, end,
                 repeatMethod, repeatDuration, json);
 
@@ -19,6 +19,7 @@ app.eventsController = (function() {
             }).then(function () {
                 var saveData = {
                     method: 'saveEvent',
+                    file: sessionStorage['events'],
                     json: JSON.stringify(resultingJSON),
                     email: email,
                     deleteUrl: deleteUrl,
@@ -27,7 +28,9 @@ app.eventsController = (function() {
                 $.post('api/events.php', saveData, function (response) {
                     $.parseHTML(response);
                 }).success(function (data) {
-                    window.location.replace("./index.html");
+                    setTimeout(function() {
+                        window.location.replace("./events.html");
+                    }, 1000);
                 }).error(function (error) {
                     console.log(error);
                 }).complete(function (status) {
@@ -61,7 +64,7 @@ app.eventsController = (function() {
     function addEvents(title, department, multimedia, additionalInfo, username, phone, email, start, end, method, duration, json) {
         var event;
         var id = (new Date()).getTime() + app.id;
-        var deleteURL = document.URL.substr(0,document.URL.lastIndexOf('/')) + '/api/events.php?id=' + id;
+        var deleteURL = document.URL.substr(0,document.URL.lastIndexOf('/')) + '/api/events.php?event='+sessionStorage['events']+'&id=' + id;
 
         if(duration !== 0) {
             for (var i = 0; i < duration; i++) {

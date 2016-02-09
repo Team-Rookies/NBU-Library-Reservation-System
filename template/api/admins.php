@@ -1,6 +1,6 @@
 <?php
-$file = '../admins.json';
-$sessions = '../sessions.json';
+$file = '../jsonDB/admins.json';
+$sessions = '../jsonDB/sessions.json';
 $method = '';
 
 if(isset($_POST['method'])) {

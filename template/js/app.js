@@ -2,7 +2,7 @@ var app = app || {};
 
 (function getId() {
     if (!app.id) {
-        $.getJSON('events.json', function (json) {
+        $.getJSON(sessionStorage['events'], function (json) {
 
         }).success(function (json) {
             app.dates = new BinarySearchTree();

@@ -1,9 +1,16 @@
+//Debug
+sessionStorage['events'] = 'jsonDB/seminarEvents.json';
+
+function getEventsJSON() {
+    return sessionStorage['events'];
+}
+
 (function($) {
 
     "use strict";
 
     var options = {
-        events_source: 'events.json',
+        events_source: getEventsJSON(),
         view: 'month',
         tmpl_path: 'tmpls/',
         tmpl_cache: false,
