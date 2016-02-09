@@ -63,11 +63,13 @@
                     </div>
                 </nav>
                 </br>
+                <div class="container">
                 <h1>NBU Reservation System</h1>
                 <p>Team ROOKIE product</p>
                 </br></br></br>
 
                 <button type="button" class="btn btn-success btn-primary" data-toggle="modal" data-target="#AddFormModal">Add event</button>
+                </div>
             </div>
 
                 <!-- Modal -->
@@ -117,11 +119,11 @@
                                         <div class="col-xs-6 form-group">
                                             <label>Telephone</label>
                                             <input class="validate[required, custom[onlyNumberSp]] form-control" type="text" name="phone" id="phone"/>
-                                        </div> 
+                                        </div>
                                         <div class="col-xs-6 form-group">
                                             <label>Email</label>
                                             <input class="validate[required, custom[email]] form-control" type="text" name="mail" id="mail"/>
-                                        </div> 
+                                        </div>
                                         <div class="col-xs-6 form-group">
                                             <div class="row">
                                                 <div class="col-xs-6">
@@ -145,8 +147,8 @@
                                                         </script>
                                                     </select>
                                                 </div>
-                                            </div> 
-                                        </div>   
+                                            </div>
+                                        </div>
                                         <div class="container">
                                             <label for="additionalInfo">Additional information:</label>
                                             <textarea class="form-control" rows="5" name="additionalInfo" id="additionalInfo"></textarea>
@@ -286,7 +288,7 @@
                     'defaultTimeDelta': 1800000
                 });
 
-//Reset button form               
+//Reset button form
                 $('#clearBtn').click(function () {
                     document.getElementById("addForm").reset();
                     document.getElementById("selectDuration").disabled = true;
