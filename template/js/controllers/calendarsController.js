@@ -2,17 +2,28 @@ var app = app || {};
 
 app.calendarController = (function() {
     function CalendarController() {
-
     }
 
-    CalendarController.prototype.getCalendarEventsByCalendarName = function(name) {
+    CalendarController.prototype.getCalendars = function() {
+        var defer = Q.defer();
+        $.getJSON('jsonDB/calendars.json', function(json) {
+            if(json) {
+                defer.resolve(json.calendars);
+            } else {
+                defer.reject();
+            }
+        });
 
+        return defer.promise;
     };
 
-    CalendarController.prototype.createCalendar = function (name) {
+    CalendarController.prototype.createCalendar = function (name, fileName) {
         var saveData = {
             method: 'saveCalendar',
-            name: name
+            data: JSON.stringify({
+                fileName: fileName,
+                name: name
+            })
         };
 
         $.ajax({
