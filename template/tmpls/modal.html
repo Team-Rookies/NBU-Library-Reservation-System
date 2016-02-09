@@ -10,8 +10,25 @@ event.date_end = new Date(parseInt(event.end)); %>
     <span><b>ENDS ON</b>  <%= event.date_end.getDate() %> <%= calendar.locale["m" + event.date_end.getMonth()] %> <%= event.date_end.getFullYear() %>, at <%= event.date_end.getHours() %>:<%= event.date_end.getMinutes() == 0 ? '00' : event.date_end.getMinutes() %> <i class = "icon-time"></i></span><br />
     <span><span class="glyphicon glyphicon-info-sign"></span> <%= event.additionalInfo %> </span>
     <p> Multimedia: <%= event.multimedia ? 'Needed' : 'Not needed'%> </p>
-    <div style = "margin: 10px 0">
+
+    <div style = "margin: 10px 0" id="delBtn">
         <a href="#" edata="<%= event.deleteUrl %>" class = "btn btn-primary" id="deleteBtn"><i class = "icon-calendar"></i>Delete</a>
     </div>
+
+    <script>
+        if(localStorage['username']) {
+            app.userController.checkSession()
+                    .then(
+                    function(success) {
+                        $('#delBtn').css('visibility', 'visible');
+                    },
+                    function (error) {
+                        $('#delBtn').css('visibility', 'hidden');
+                        console.log(error);
+                    });
+        } else{
+            $('#delBtn').css('visibility', 'hidden');
+        }
+    </script>
 </div>
 <script>attachEvents();</script>
