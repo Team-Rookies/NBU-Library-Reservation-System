@@ -4,10 +4,10 @@ var grid = grid || {};
     app.adminController.checkSession('../jsonDB/')
         .then(function(success) {
             $.getJSON('../jsonDB/calendars.json', function (json) {
-                if (json) {
+                if (json.calendars) {
                     if (!sessionStorage['calendarFile']) {
-                        sessionStorage['calendarFile'] = calendars[0].fileName;
-                        sessionStorage['calendarName'] = calendars[0].name;
+                        sessionStorage['calendarFile'] = json.calendars[0].fileName;
+                        sessionStorage['calendarName'] = json.calendars[0].name;
                     }
                     $('#hallName').text(sessionStorage['calendarName']);
                     grid.calendars = json.calendars;
@@ -62,6 +62,7 @@ var grid = grid || {};
                             {type: 'control'}
                         ]
                     });
+                    $('#print').jsButton();
                     eventHandlers();
                 });
             });
