@@ -1,10 +1,10 @@
 var app = app || {};
 
-app.userController = (function() {
-    function UserController() {
+app.adminController = (function() {
+    function AdminController() {
     }
 
-    UserController.prototype.register = function(username, password, repeatPassword) {
+    AdminController.prototype.register = function(username, password, repeatPassword) {
         var _this = this;
         var newAdmin = new Admin(username, password, repeatPassword);
         //var frozen = newAdmin.freeze();
@@ -35,8 +35,8 @@ app.userController = (function() {
         })
     };
 
-    UserController.prototype.login = function(username, password) {
-        $.getJSON('jsonDB/admins.json', function (json) {
+    AdminController.prototype.login = function(username, password) {
+        $.getJSON('../jsonDB/admins.json', function (json) {
             json.admins.forEach(function(a){
                 if(username === a.username) {
                     if(password === sjcl.decrypt('password', a.password)) {
@@ -50,14 +50,14 @@ app.userController = (function() {
                             })
                         };
 
-                        $.post('api/admins.php', data, function (response) {
+                        $.post('../api/admins.php', data, function (response) {
                             $.parseHTML(response);
                         }).success(function (data) {
                             console.log('Success: ' + data);
                         }).error(function (error) {
                             console.log('Error: ' + error);
                         }).complete(function (status) {
-                            window.location.replace("./events.html");
+                            window.location.replace("admin.html");
                         });
                         return false;
                     } else {
@@ -68,7 +68,7 @@ app.userController = (function() {
         })
     };
 
-    UserController.prototype.logout = function() {
+    AdminController.prototype.logout = function() {
         var data = {
             method : 'deleteSession',
             data: JSON.stringify({
@@ -80,18 +80,18 @@ app.userController = (function() {
         delete localStorage['sessionCookie'];
         delete localStorage['username'];
 
-        $.post('api/admins.php', data, function (response) {
+        $.post('../api/admins.php', data, function (response) {
             $.parseHTML(response);
         }).success(function (data) {
             console.log('Success: ' + data);
         }).error(function (error) {
             console.log('Error: ' + error);
         }).complete(function (status) {
-            window.location.replace("./events.html");
+            window.location.replace("../events.html");
         });
     };
 
-    UserController.prototype.checkSession = function() {
+    AdminController.prototype.checkSession = function() {
         var defer = Q.defer();
         if(localStorage['sessionCookie'] && localStorage['username']) {
             var checkString = JSON.stringify({
@@ -114,5 +114,5 @@ app.userController = (function() {
         return defer.promise;
     };
 
-    return new UserController();
+    return new AdminController();
 }());
