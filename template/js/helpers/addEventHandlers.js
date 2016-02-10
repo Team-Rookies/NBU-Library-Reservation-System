@@ -1,4 +1,6 @@
 function attachEvents() {
+    $('#logout').on('click', app.adminController.logout);
+
     $('#addBtn').click(function () {
         $("#addForm").validationEngine();
         var valid = $("#addForm").validationEngine('validate');

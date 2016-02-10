@@ -87,11 +87,11 @@ app.adminController = (function() {
         }).error(function (error) {
             console.log('Error: ' + error);
         }).complete(function (status) {
-            window.location.replace("../events.html");
+            window.location.replace("events.html");
         });
     };
 
-    AdminController.prototype.checkSession = function() {
+    AdminController.prototype.checkSession = function(path) {
         var defer = Q.defer();
         if(localStorage['sessionCookie'] && localStorage['username']) {
             var checkString = JSON.stringify({
@@ -99,7 +99,7 @@ app.adminController = (function() {
                 sessionCookie: localStorage['sessionCookie']
             });
 
-            $.getJSON('jsonDB/sessions.json', function(json){
+            $.getJSON( path + 'sessions.json', function(json){
                 for (var i in json.sessions) {
                     if(json.sessions[i] === checkString) {
                         defer.resolve(true);

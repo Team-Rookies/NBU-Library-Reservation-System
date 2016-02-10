@@ -17,7 +17,7 @@ event.date_end = new Date(parseInt(event.end)); %>
 
     <script>
         if(localStorage['username']) {
-            app.adminController.checkSession()
+            app.adminController.checkSession('jsonDB/')
                     .then(
                     function(success) {
                         $('#delBtn').css('visibility', 'visible');

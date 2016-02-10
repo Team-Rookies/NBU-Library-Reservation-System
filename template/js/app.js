@@ -1,9 +1,14 @@
 var app = app || {};
 
 $(document).ready(function () {
-
     if(localStorage['username']) {
         $('#login').text('Welcome '+ localStorage['username']);
+        $('#admin-panel').css('visibility', 'visible');
+        $('#logout').css('visibility', 'visible');
+
+    } else {
+        $('#admin-panel').css('visibility', 'hidden');
+        $('#logout').css('visibility', 'hidden');
     }
     if (!app.id) {
         if(sessionStorage['calendarFile']) {
