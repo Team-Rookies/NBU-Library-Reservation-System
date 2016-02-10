@@ -29,7 +29,11 @@ app.eventsController = (function() {
                 $.post('api/events.php', saveData, function (response) {
                     $.parseHTML(response);
                 }).success(function (data) {
-                    $('#AddFormModal').modal('hide');
+                    var mod = $('#AddFormModal');
+                    mod.modal('hide');
+                    mod.on('hidden.bs.modal', function () {
+                        $(this).find('form').trigger('reset');
+                    });
                     app.options.events_source = app.calendarController.refreshSource();
                     $('#hallName').text(sessionStorage['calendarName']);
                     $('#calendar').calendar(app.options);
@@ -67,7 +71,7 @@ app.eventsController = (function() {
     function addEvents(title, department, multimedia, additionalInfo, username, phone, email, start, end, method, duration, json) {
         var event;
         var id = (new Date()).getTime() + app.id;
-        var deleteURL = document.URL.substr(0,document.URL.lastIndexOf('/')) + '/api/events.php?event='+sessionStorage['events']+'&id=' + id;
+        var deleteURL = document.URL.substr(0,document.URL.lastIndexOf('/')) + '/api/events.php?event='+sessionStorage['calendarFile']+'&id=' + id;
 
         if(duration !== 0) {
             for (var i = 0; i < duration; i++) {
