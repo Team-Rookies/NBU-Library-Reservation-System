@@ -2,7 +2,9 @@ var app = app || {};
 
 $(document).ready(function () {
 
-
+    if(localStorage['username']) {
+        $('#login').text('Welcome '+ localStorage['username']);
+    }
     if (!app.id) {
         if(sessionStorage['calendarFile']) {
             var path = 'jsonDB/';
