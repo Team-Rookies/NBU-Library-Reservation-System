@@ -462,7 +462,6 @@ span[data-cal-date]:hover {
   height:95%;
   background-image: url('../img/logo.png');
   background-position:50%;
-  z-index:2;
   background-repeat:no-repeat;
   opacity: 0.3;
 }
