@@ -9,7 +9,7 @@ event.date_end = new Date(parseInt(event.end)); %>
     <span><b>STARTS ON</b> <%= event.date_start.getDate() %> <%= calendar.locale["m" + event.date_start.getMonth()] %> <%= event.date_start.getFullYear() %>, <b>at</b> <%= event.date_start.getHours() %>:<%= event.date_start.getMinutes() == 0 ? '00' : event.date_start.getMinutes() %> <i class = "icon-time"></i></span><br/><b>ENDS ON</b>  <%= event.date_end.getDate() %> <%= calendar.locale["m" + event.date_end.getMonth()] %> <%= event.date_end.getFullYear() %>, <b>at</b> <%= event.date_end.getHours() %>:<%= event.date_end.getMinutes() == 0 ? '00' : event.date_end.getMinutes() %> <i class = "icon-time"></i></span><br />
     <h3> Multimedia: <%= event.multimedia ? 'Needed' : 'Not needed'%> </h3>
     </br></br>
-    <span><span class="glyphicon glyphicon-info-sign"></span> <%= event.additionalInfo %> </span>
+    <div class="panel panel-default"><span><span class="glyphicon glyphicon-info-sign"></span> <%= event.additionalInfo %> </span></div>
 
     <div style = "margin: 10px 0" id="delBtn">
         <a href="#" edata="<%= event.deleteUrl %>" class = "btn btn-primary" id="deleteBtn"><i class = "icon-calendar"></i>Delete</a>
