@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="../components/bootstrap3/css/bootstrap.min.css">
         <link rel="stylesheet" href="../components/bootstrap3/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="../css/bootstrap-select.min.css"/>
+        <link rel="stylesheet" href="../css/style.css">
+
         <script type="text/javascript" src="../components/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="../components/bootstrap3/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../components/bootstrap-select.min.js"></script>
@@ -23,10 +25,45 @@
 
         <select class="form-control" title="Choose Hall..." id="halls">
         </select>
-        <div class="container text-center"> 
-            <br>
-            <button id="addHallBtn" type="button" class="btn btn-success btn-md">Add new hall <span class="glyphicon glyphicon-plus"></span></button>
-            <a href="../events.html"><button type="button" class="btn btn-success btn-md">Back to events <span class="glyphicon glyphicon-arrow-left"></span></button></a>
+        <div class="container text-center">
+            <br> <br>
+            <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#AddHallModal">Add new hall <span class="glyphicon glyphicon-plus"></span></button>
+            <button type="button" class="btn btn-success btn-md">Back to events <span class="glyphicon glyphicon-arrow-left"></span></button>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="AddHallModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <form id="addHallForm" method="post">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4><span class="glyphicon glyphicon-home"></span> Add Hall</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-6 form-group">
+                                        <label>Hall Name</label>
+                                        <input class="validate[required, custom[onlyLetterSp]] form-control" type="text" name="title" id="title"/>
+                                    </div>
+                                    <div class="col-xs-6 form-group">
+                                        <label>File Name</label>
+                                        <input class="validate[required, custom[onlyLetterSp]] form-control" type="text" name="dep" id="dep"/>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn btn-info" value="Submit new hall" id="addBtn"/>
+                                <input type="reset" class="btn btn-default" value="Clear" id="clearBtn"/>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
         </div>
         <br>
         <table id="jsGrid"></table>
