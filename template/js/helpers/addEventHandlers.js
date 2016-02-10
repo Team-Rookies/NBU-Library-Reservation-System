@@ -1,5 +1,4 @@
 function attachEvents() {
-
     $('#addBtn').click(function () {
         $("#addForm").validationEngine();
         var valid = $("#addForm").validationEngine('validate');
@@ -55,8 +54,27 @@ function attachEvents() {
     });
 
     $('#datepair .time').on('focus', function () {
+        var now = new Date();
         var date = new Date($('#dateStart').val());
-        if (app.dates.containsDate(date)) {
+        if(date.getDate() == now.getDate()) {
+            var arr = [];
+            var hours = now.getHours();
+            var timeNow = hours;
+            if(now.getMinutes() >= 30) {
+                timeNow++;
+                timeNow += ':00';
+            } else {
+                timeNow += ':30';
+            }
+            if(hours > 12) {
+                timeNow+= 'PM';
+            } else {
+                timeNow+='AM';
+            }
+            arr.push(new Array('08:00AM', timeNow));
+
+            $(this).timepicker('option', 'disableTimeRanges',arr);
+        } else if (app.dates.containsDate(date)) {
             var arr = [];
             app.dates.toArray().forEach(function (e) {
                 var dt = [];
