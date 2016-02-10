@@ -11,7 +11,8 @@ app.eventsController = (function() {
         var deleteUrl;
 
         if(dateOk) {
-            $.getJSON(sessionStorage['events'], function (json) {
+            var path = 'jsonDB/';
+            $.getJSON(path + sessionStorage['calendarFile'], function (json) {
                 deleteUrl = addEvents(title, department, multimedia, additionalInfo, username, phone, email, start, end,
                 repeatMethod, repeatDuration, json);
 
@@ -19,7 +20,7 @@ app.eventsController = (function() {
             }).then(function () {
                 var saveData = {
                     method: 'saveEvent',
-                    file: sessionStorage['events'],
+                    file: sessionStorage['calendarFile'],
                     json: JSON.stringify(resultingJSON),
                     email: email,
                     deleteUrl: deleteUrl,
@@ -43,6 +44,7 @@ app.eventsController = (function() {
     };
 
     function checkValidDate(start, end, method, duration) {
+        duration = duration || 1;
         for (var i = 0; i < duration; i++) {
             var newStart = new Date(start.getTime());
             var newEnd = new Date(end.getTime());

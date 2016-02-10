@@ -42,7 +42,8 @@ function saveCalendar($path, $calendars) {
             fwrite($file, json_encode($obj));
             fclose($file);
 
-            $responseArray['status'] = substr($filename, 3);
+            $responseArray['fileName'] = $data->fileName;
+            $responseArray['name'] = $data->name;
             echo json_encode($responseArray);
         } else {
             $data = array('type' => 'error', 'message' => 'Calendar already in database. No file associated!');

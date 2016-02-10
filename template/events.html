@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="css/calendar.css">
         <link rel="stylesheet" href="css/datepicker.css">
         <link rel="stylesheet" href="css/jquery.timepicker.css">
+        <link rel="stylesheet" href="css/bootstrap-select.min.css"/>
         <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css"/>
         <link rel="stylesheet" href="css/style.css" type="text/css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.4/css/bootstrap-select.min.css">
@@ -21,7 +22,7 @@
         <script type="text/javascript" src="components/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="components/underscore/underscore-min.js"></script>
         <script type="text/javascript" src="components/bootstrap3/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.4/js/bootstrap-select.min.js"></script>
+        <script type="text/javascript" src="components/bootstrap-select.min.js"></script>
         <script type="text/javascript" src="components/jstimezonedetect/jstz.min.js"></script>
         <script type="text/javascript" src="components/sjcl/sjcl.js"></script>
         <script type="text/javascript" src="components/q/q.js"></script>
@@ -37,6 +38,7 @@
         <script type="text/javascript" src="js/helpers/hashString.js"></script>
 
     </head>
+    <body>
     <div>
 
         <div class="jumbotron">
@@ -49,7 +51,7 @@
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="/admin.html">Login</a></li>
+                            <li><a href="/admin/login.html">Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -182,7 +184,7 @@
             </div>
 
             <h3></h3>
-            <small>To see example with events navigate to march 2013</small>
+            <h2 id="hallName"></h2>
         </div>
 
         <div class="row">
@@ -191,10 +193,7 @@
             </div>
             <div class="col-md-3">
                 <div class="row">
-                    <select class="selectpicker form-control" data-style="btn-danger" multiple title="Choose Hall...">
-                        <option>Hall 1</option>
-                        <option>Hall 2</option>
-                        <option>Hall 3</option>
+                    <select class="form-control" title="Choose Hall..." id="halls">
                     </select>
                     </br> </br>
                     <select id="first_day" class="form-control">
@@ -248,7 +247,7 @@
 
     <div id="footer">
         <div class="container">
-            </br><p class="text-muted credit">Team ROOKIE <a href="#">Svetlin</a>, <a href="#">Bogomil</a> and <a href="#">Ivan</a>.</p>
+            <br/><p class="text-muted credit">Team ROOKIE <a href="https://github.com/BogomilDimitrov" target="_blank">Bogomil</a>, <a href="https://github.com/ivandimov" target="_blank">Ivan</a> and <a href="https://github.com/axjaxja" target="_blank">Svetlin</a>.</p>
         </div>
     </div>
 
@@ -256,56 +255,12 @@
     <script type="text/javascript" src="js/models/event.js"></script>
     <script type="text/javascript" src="js/models/dateRange.js"></script>
     <script type="text/javascript" src="js/models/admin.js"></script>
-    <script type="text/javascript" src="js/calendarApp.js"></script>
     <script type="text/javascript" src="js/controllers/eventsController.js"></script>
     <script type="text/javascript" src="js/controllers/usersController.js"></script>
     <script type="text/javascript" src="js/controllers/calendarsController.js"></script>
+    <script type="text/javascript" src="js/calendarApp.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
 
-    <script>
-                                                    $('#datepair .time').timepicker({
-                                                        'showDuration': true,
-                                                        'timeFormat': 'H:i',
-                                                        'minTime': '08:00',
-                                                        'maxTime': '20:00',
-                                                        'disableTextInput': true
-                                                    });
 
-                                                    $('#datepair .date').datepicker({
-                                                        'format': 'yyyy-mm-dd',
-                                                        'autoclose': true,
-                                                        'startDate': '+0d'
-                                                    });
-
-                                                    $('#datepair').datepair({
-                                                        'defaultTimeDelta': 1800000
-                                                    });
-
-//Reset button form
-                                                    $('#clearBtn').click(function () {
-                                                        document.getElementById("addForm").reset();
-                                                        document.getElementById("selectDuration").disabled = true;
-                                                    });
-
-// Repeat fields dependency
-                                                    $(function () {
-
-                                                        var $cat = $("#selectMethod"),
-                                                                $subcat = $("#selectDuration");
-
-                                                        $cat.on("change", function () {
-                                                            var _rel = $(this).val();
-                                                            $subcat.find("option").attr("style", "");
-                                                            $subcat.val("");
-                                                            if (!_rel)
-                                                                return $subcat.prop("disabled", true);
-                                                            $subcat.find("[rel=" + _rel + "]").show();
-                                                            $subcat.prop("disabled", false);
-                                                        });
-
-                                                    });
-    </script>
-
-</div>
 </body>
 </html>

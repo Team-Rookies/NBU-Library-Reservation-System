@@ -4,6 +4,18 @@ app.calendarController = (function() {
     function CalendarController() {
     }
 
+    CalendarController.prototype.getCalendarByFileName = function(fname) {
+        var calendarName = Q.defer();
+        $.getJSON('jsonDB/calendars.json', function(json) {
+            json.calendars.forEach(function(c) {
+                if(c.fileName === fname) {
+                    calendarName.resolve(c.name);
+                }
+            })
+        });
+        return calendarName.promise;
+    };
+
     CalendarController.prototype.getCalendars = function() {
         var defer = Q.defer();
         $.getJSON('jsonDB/calendars.json', function(json) {
@@ -31,16 +43,14 @@ app.calendarController = (function() {
             url: 'api/calendars.php',
             data: saveData,
             success: function (data) {
-                sessionStorage['events'] = JSON.parse(data).status;
-
-                setTimeout(function() {
-                    window.location.replace("./events.html");
-                }, 1000);
+                sessionStorage['calendarFile'] = JSON.parse(data).fileName;
+                sessionStorage['calendarName'] = JSON.parse(data).name;
+                window.location.replace("./events.html");
             },
             error: function (error) {
                 console.log('Error: ' + JSON.parse(error.responseText).message);
             }
-        }).done();
+        })
     };
 
 

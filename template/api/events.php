@@ -1,17 +1,18 @@
 <?php
     $file = '';
     $method = '';
+    $path = '../jsonDB/';
 
     if(isset($_POST['method'])) {
         $method = $_POST['method'];
     }
 
     if(isset($_POST['file'])) {
-        $file = '../' . $_POST['file'];
+        $file = $path . $_POST['file'];
     }
 
     if(isset($_GET['id'])) {
-        $file = ('../' . $_GET['event']);
+        $file = ($path . $_GET['event']);
         deleteEvent($file, $_GET['id']);
     }
 

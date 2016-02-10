@@ -1,16 +1,30 @@
-//Debug
-sessionStorage['events'] = 'jsonDB/seminarEvents.json';
+app.calendarController.getCalendars()
+    .then(function(calendars) {
+        if(!sessionStorage['calendarFile']) {
+            sessionStorage['calendarFile'] = calendars[0].fileName;
+            sessionStorage['calendarName'] = calendars[0].name;
+        }
+        $('#hallName').text(sessionStorage['calendarName']);
+        app.calendars = calendars;
+        calendars.forEach(function(c) {
+            $('<option/>').attr({value: c.fileName}).text(c.name).appendTo('#halls');
+        });
+        initCalendar(jQuery);
+    }, function (error) {
+        throw new Error('Error loading calendars');
+    }).done(function(e) {
+        $('#halls').selectpicker({
+            style:'btn-danger'
+        });
+    });
 
-function getEventsJSON() {
-    return sessionStorage['events'];
-}
 
-(function($) {
-
+function initCalendar($) {
+    var path = 'jsonDB/';
     "use strict";
 
     var options = {
-        events_source: getEventsJSON(),
+        events_source: path + sessionStorage['calendarFile'],
         view: 'month',
         tmpl_path: 'tmpls/',
         tmpl_cache: false,
@@ -92,4 +106,4 @@ function getEventsJSON() {
         //e.stopPropagation();
     });
 
-}(jQuery));
+};

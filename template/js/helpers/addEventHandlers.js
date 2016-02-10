@@ -28,7 +28,7 @@ function attachEvents() {
         var url = $('#deleteBtn').attr("edata");
         var saveData = {
             method: 'deleteEvent',
-            file: sessionStorage['events'],
+            file: sessionStorage['calendarFile'],
             url: url
         };
 
@@ -46,7 +46,7 @@ function attachEvents() {
         return false;
     });
 
-    $('#timeStart').focus(function () {
+    $('#datepair .time').on('focus', function () {
         var date = new Date($('#dateStart').val());
         if (app.dates.containsDate(date)) {
             var arr = [];
@@ -57,39 +57,23 @@ function attachEvents() {
                 arr.push(dt);
             });
 
-            $('#timeStart').timepicker({
-                'showDuration': true,
-                'timeFormat': 'H:i',
-                'minTime': '08:00',
-                'maxTime': '20:00',
-                'disableTextInput': true,
-                'disableTimeRanges': arr
-            })
+            $(this).timepicker('option', 'disableTimeRanges', arr);
+        } else {
+            $(this).timepicker('option', 'disableTimeRanges', []);
         }
     });
 
-    $('#timeEnd').focus(function () {
-        var date = new Date($('#dateStart').val());
-        if (app.dates.containsDate(date)) {
-            var arr = [];
-            app.dates.toArray().forEach(function (e) {
-                var dt = [];
-                dt.push(formatAMPM(e.startTime));
-                dt.push(formatAMPM(e.endTime));
-                arr.push(dt);
-            });
-
-            $('#timeEnd').timepicker({
-                'showDuration': true,
-                'timeFormat': 'H:i',
-                'minTime': '08:00',
-                'maxTime': '20:00',
-                'disableTextInput': true,
-                'disableTimeRanges': arr
+    $('#halls').on('change', function() {
+        var _this = this;
+        app.calendarController.getCalendarByFileName(this.value)
+            .then(function(name) {
+                sessionStorage['calendarName'] = name;
+                sessionStorage['calendarFile'] = _this.value;
             })
-        }
+            .done(function() {
+                window.location.reload();
+            })
     });
-
 
     function formatAMPM(date) {
         var hours = date.getHours();
