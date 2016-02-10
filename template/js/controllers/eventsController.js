@@ -29,6 +29,7 @@ app.eventsController = (function() {
                 $.post('api/events.php', saveData, function (response) {
                     $.parseHTML(response);
                 }).success(function (data) {
+                    $('#AddFormModal').modal('hide');
                     app.options.events_source = app.calendarController.refreshSource();
                     $('#hallName').text(sessionStorage['calendarName']);
                     $('#calendar').calendar(app.options);

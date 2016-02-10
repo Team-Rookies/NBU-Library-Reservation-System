@@ -8,7 +8,7 @@ grid.gridController = (function() {
     function deleteItem(item) {
         var saveData = {
             method: 'deleteEvent',
-            file: 'collectiveEvents.json',
+            file: grid.fileName,
             url: item.deleteUrl
         };
 

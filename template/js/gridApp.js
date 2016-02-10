@@ -13,7 +13,6 @@ $(function () {
                 grid.calendars.forEach(function (c) {
                     $('<option/>').attr({value: c.fileName}).text(c.name).appendTo('#halls');
                 });
-                eventHandlers();
             } else {
                 throw new Error('Error loading calendars');
             }
@@ -25,9 +24,9 @@ $(function () {
 
         $('#halls').on('change', function () {
             var data;
-            var fileName = '../jsonDB/' + this.value;
+            grid.fileName = '../jsonDB/' + this.value;
 
-            $.getJSON(fileName, function (json) {
+            $.getJSON(grid.fileName, function (json) {
                 data = json.result;
             }).then(function () {
                 grid.data = data;
@@ -60,6 +59,7 @@ $(function () {
                         {type: 'control'}
                     ]
                 });
+                eventHandlers();
             });
         });
     } else {
@@ -68,5 +68,11 @@ $(function () {
 });
 
 function eventHandlers() {
+    $('#addHallBtn').on('click', function() {
+        console.log('it works')
+    });
 
+    $('.jsgrid-delete-button').on('click', function() {
+        window.location.reload();
+    })
 }
