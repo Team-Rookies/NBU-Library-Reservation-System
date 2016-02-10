@@ -4,6 +4,10 @@ app.calendarController = (function() {
     function CalendarController() {
     }
 
+    CalendarController.prototype.refreshSource = function() {
+        return 'jsonDB/' + sessionStorage['calendarFile'];
+    };
+
     CalendarController.prototype.getCalendarByFileName = function(fname) {
         var calendarName = Q.defer();
         $.getJSON('jsonDB/calendars.json', function(json) {

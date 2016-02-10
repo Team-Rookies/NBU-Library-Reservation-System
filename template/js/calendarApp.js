@@ -23,7 +23,7 @@ function initCalendar($) {
     var path = 'jsonDB/';
     "use strict";
 
-    var options = {
+    app.options = {
         events_source: path + sessionStorage['calendarFile'],
         view: 'month',
         tmpl_path: 'tmpls/',
@@ -54,7 +54,7 @@ function initCalendar($) {
         }
     };
 
-    var calendar = $('#calendar').calendar(options);
+    var calendar = $('#calendar').calendar(app.options);
 
     $('.btn-group button[data-calendar-nav]').each(function() {
         var $this = $(this);

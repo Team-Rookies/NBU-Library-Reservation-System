@@ -54,10 +54,10 @@ function attachEvents() {
     });
 
     $('#datepair .time').on('focus', function () {
+        var arr = [];
         var now = new Date();
         var date = new Date($('#dateStart').val());
         if(date.getDate() == now.getDate()) {
-            var arr = [];
             var hours = now.getHours();
             var timeNow = hours;
             if(now.getMinutes() >= 30) {
@@ -75,7 +75,6 @@ function attachEvents() {
 
             $(this).timepicker('option', 'disableTimeRanges',arr);
         } else if (app.dates.containsDate(date)) {
-            var arr = [];
             app.dates.toArray().forEach(function (e) {
                 var dt = [];
                 dt.push(formatAMPM(e.startTime));
@@ -97,7 +96,9 @@ function attachEvents() {
                 sessionStorage['calendarFile'] = _this.value;
             })
             .done(function() {
-                window.location.reload();
+                app.options.events_source = app.calendarController.refreshSource();
+                $('#hallName').text(sessionStorage['calendarName']);
+                $('#calendar').calendar(app.options);
             })
     });
 
