@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Admin panel home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/jsgrid.min.css">
+        <link rel="stylesheet" href="css/jsgrid-theme.min.css"/>
+        <script type="text/javascript" src="../components/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jsgrid.min.js"></script>
+    </head>
+    <body>
+        <table id="jsGrid"></table>
+        <script>
+            $(function () {
+
+                $("#jsGrid").jsGrid({
+                    height: "auto",
+                    width: "100%",
+                    sorting: true,
+                    paging: false,
+                    autoload: true,
+                    controller: {
+                        loadData: function (filter) {
+                            return $.ajax({
+                                type: "GET",
+                                url: "../jsonDB/seminarEvents.json",
+                                data: filter,
+                                dataType: "json"
+                            });
+                        }
+                    },
+                    fields: [
+                        {name: "id", type: "text"},
+                        {name: "Title", type: "textarea", width: 150}
+                    ]
+                });
+
+            });
+        </script>
+    </body>
+</html>
