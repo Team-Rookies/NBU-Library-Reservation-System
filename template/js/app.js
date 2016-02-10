@@ -64,6 +64,7 @@ function milToDate(m) {
     $('#clearBtn').click(function () {
         document.getElementById("addForm").reset();
         document.getElementById("selectDuration").disabled = true;
+        document.getElementById("timeEnd").disabled = true;
     });
 
 // Repeat fields dependency
