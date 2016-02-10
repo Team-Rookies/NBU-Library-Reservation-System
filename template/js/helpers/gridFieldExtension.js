@@ -4,7 +4,6 @@ var RepeatedField = function(config) {
 
 RepeatedField.prototype = new jsGrid.Field({
 
-    css: "date-field",            // redefine general property 'css'
     align: "center",              // redefine general property 'align'
 
     myCustomProperty: "Repeated",      // custom property
@@ -14,4 +13,24 @@ RepeatedField.prototype = new jsGrid.Field({
     }
 });
 
-jsGrid.fields.repeated = RepeatedField;
+var CustomDate = function(config) {
+    jsGrid.Field.call(this, config);
+};
+
+CustomDate.prototype = new jsGrid.Field({
+    css: 'date-field',
+    align: 'center',
+
+    myCustomProperty: 'CustomDate',
+
+    itemTemplate: function(value) {
+        return new Date(Number(value)).toLocaleString();
+    },
+
+    sorter: function(d1, d2) {
+        return d1 - d2;
+    }
+
+});
+
+jsGrid.fields.customDate = CustomDate;

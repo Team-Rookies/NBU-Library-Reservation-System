@@ -43,6 +43,11 @@ $(function () {
                     {name: "title", type: "textarea", width: 150, title:'Title', sorting: true},
                     {name: 'department', type: 'textarea', width: 150, title:'Department', sorting: true},
                     {name: 'multimedia', type: "checkbox", title: "Needs multimedia", sorting: true },
+                    {name: 'username', type: "text", title: "Name", sorting: true },
+                    {name: 'phone', type: "text", title: "Telephone", sorting: true },
+                    {name: 'start', type:'customDate', title:'Start date', sorting: true},
+                    {name: 'end', type:'customDate', title:'End date', sorting: true},
+                    {name: 'email', type: "text", title: "Email", sorting: true },
                     {name: 'additionalInfo', type: 'textarea', width: 150, title:'Additional Information',sorting: false},
                     {name: 'deleteUrl', type:'repeated', title:'Delete Link Id'},
                     {type:'control'}
