@@ -1,7 +1,8 @@
 var grid = grid || {};
 
-$(function () {
+(function () {
     if(app.adminController.checkSession('../jsonDB/')) {
+
         $.getJSON('../jsonDB/calendars.json', function (json) {
             if (json) {
                 if (!sessionStorage['calendarFile']) {
@@ -21,6 +22,8 @@ $(function () {
                 style: 'btn-info'
             });
         });
+
+        addHallHandlers();
 
         $('#halls').on('change', function () {
             var data;
@@ -65,7 +68,7 @@ $(function () {
     } else {
         window.location.replace('../login.html');
     }
-});
+}());
 
 function eventHandlers() {
     $('#addHallBtn').on('click', function() {
@@ -74,5 +77,18 @@ function eventHandlers() {
 
     $('.jsgrid-delete-button').on('click', function() {
         window.location.reload();
+    });
+}
+
+function addHallHandlers() {
+    $('#addBtn').on('click', function() {
+        var calName = $('#title').val();
+        var fileName = $('#fileName').val();
+        app.calendarController.createCalendar(calName, fileName, '../api/')
+            .then(function(success) {
+                window.location.reload();
+            }, function(error) {
+                console.error(error);
+            })
     })
 }

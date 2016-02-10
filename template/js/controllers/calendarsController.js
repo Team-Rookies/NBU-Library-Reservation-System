@@ -33,7 +33,8 @@ app.calendarController = (function() {
         return defer.promise;
     };
 
-    CalendarController.prototype.createCalendar = function (name, fileName) {
+    CalendarController.prototype.createCalendar = function (name, fileName, path) {
+        var defer = Q.defer();
         var saveData = {
             method: 'saveCalendar',
             data: JSON.stringify({
@@ -44,20 +45,20 @@ app.calendarController = (function() {
 
         $.ajax({
             method:'post',
-            url: 'api/calendars.php',
+            url: path + 'calendars.php',
             data: saveData,
             success: function (data) {
                 sessionStorage['calendarFile'] = JSON.parse(data).fileName;
                 sessionStorage['calendarName'] = JSON.parse(data).name;
 
-                app.options.events_source = app.calendarController.refreshSource();
-                $('#hallName').text(sessionStorage['calendarName']);
-                $('#calendar').calendar(app.options);
+                defer.resolve();
             },
             error: function (error) {
-                console.log('Error: ' + JSON.parse(error.responseText).message);
+                defer.reject(JSON.parse(error.responseText).message);
             }
-        })
+        });
+
+        return defer.promise;
     };
 
 
