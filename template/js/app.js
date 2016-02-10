@@ -47,6 +47,8 @@ function milToDate(m) {
         'disableTextInput': true
     });
 
+    $('#timeEnd').attr('disabled', 'disabled');
+
 
     $('#datepair .date').datepicker({
         'format': 'yyyy-mm-dd',

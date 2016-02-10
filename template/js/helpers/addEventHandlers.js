@@ -46,6 +46,14 @@ function attachEvents() {
         return false;
     });
 
+    $('#timeStart').on('change', function() {
+        if($(this).val() != '') {
+            $('#timeEnd').removeAttr('disabled');
+        } else {
+            $('#timeEnd').attr('disabled', 'disabled');
+        }
+    });
+
     $('#datepair .time').on('focus', function () {
         var date = new Date($('#dateStart').val());
         if (app.dates.containsDate(date)) {
