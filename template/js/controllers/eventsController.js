@@ -29,9 +29,9 @@ app.eventsController = (function() {
                 $.post('api/events.php', saveData, function (response) {
                     $.parseHTML(response);
                 }).success(function (data) {
-                    setTimeout(function() {
-                        window.location.replace("./events.html");
-                    }, 1000);
+                    app.options.events_source = app.calendarController.refreshSource();
+                    $('#hallName').text(sessionStorage['calendarName']);
+                    $('#calendar').calendar(app.options);
                 }).error(function (error) {
                     console.log(error);
                 }).complete(function (status) {

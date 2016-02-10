@@ -49,7 +49,10 @@ app.calendarController = (function() {
             success: function (data) {
                 sessionStorage['calendarFile'] = JSON.parse(data).fileName;
                 sessionStorage['calendarName'] = JSON.parse(data).name;
-                window.location.replace("./events.html");
+
+                app.options.events_source = app.calendarController.refreshSource();
+                $('#hallName').text(sessionStorage['calendarName']);
+                $('#calendar').calendar(app.options);
             },
             error: function (error) {
                 console.log('Error: ' + JSON.parse(error.responseText).message);
