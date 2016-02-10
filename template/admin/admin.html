@@ -9,12 +9,23 @@ and open the template in the editor.
         <title>Admin panel home</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <link rel="stylesheet" href="css/jsgrid.min.css">
         <link rel="stylesheet" href="css/jsgrid-theme.min.css"/>
+        <link rel="stylesheet" href="../components/bootstrap3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../components/bootstrap3/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="../css/bootstrap-select.min.css"/>
+
+        <script type="text/javascript" src="../components/bootstrap3/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../components/bootstrap-select.min.js"></script>
         <script type="text/javascript" src="../components/jquery/jquery.min.js"></script>
         <script type="text/javascript" src="js/jsgrid.min.js"></script>
     </head>
     <body>
+
+    <select class="form-control" title="Choose Hall..." id="halls">
+    </select>
+
         <table id="jsGrid"></table>
         <script>
             $(function () {
