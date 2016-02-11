@@ -1,8 +1,14 @@
+.nav {
+    font-family: Candara;
+}
+h2 {
+    margin-top: 0.2em;
+}
 .form-control.unhappy {
- border:1px solid #F00;
+    border:1px solid #F00;
 }
 .unhappyMessage{
-font-size: 12px;
+    font-size: 12px;
 }
 #selectDuration option{
     display:none;
