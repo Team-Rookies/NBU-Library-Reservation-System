@@ -62,7 +62,6 @@ var grid = grid || {};
                             {type: 'control'}
                         ]
                     });
-                    $('#print').jsButton();
                     eventHandlers();
                 });
             });
@@ -91,5 +90,13 @@ function addHallHandlers() {
             }, function(error) {
                 console.error(error);
             })
-    })
+    });
+
+    $("#printTable").click(function () {
+        var divToPrint=$('#jsGrid')[0];
+        var newWin= window.open("");
+        newWin.document.write(divToPrint.innerHTML);
+        newWin.print();
+        newWin.close();
+    });
 }
